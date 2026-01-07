@@ -1,0 +1,420 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickMe</title>
+</head>
+
+<style>
+    @font-face {
+    font-family: 'font';
+    src: url('PatrickHand.ttf');
+
+    font-display: swap; 
+    }
+
+
+    *{
+        /* height: 100%; */
+        /* width: 100%; */
+        margin: 0;
+        padding: 0;
+        background-color: rgb(8, 8, 8);
+        font-family: font ,sans-serif;
+
+    }
+
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+    }
+/* 
+    header{
+        padding: 50px
+    } */
+
+    h2{
+        margin-top: 100px;
+        display: flex;
+        font-size: 65px;
+
+        color: white;
+    }
+
+    main{
+        /* margin-bottom: -150px; */
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        width: 500px;
+        height: 300px;
+        background-color:rgb(36, 36, 36);
+        border-radius: 15px  ;
+        /* box-shadow: rgb(25, 25, 25) 4px 4px 5px 2px; */
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+
+    }
+
+    main div{
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        /* margin: 10px; */
+        display: flex;
+        width: 120px;
+        height: 60px;
+        border-radius: 15px;
+        /* box-shadow: yellow 4px 3px ; */
+
+
+        /* background-color: red; */
+    }
+
+    main div button{
+        background-color: rgb(8, 8, 8);
+        cursor: pointer;
+
+        color: white;
+        font-size: 25px;
+
+        border-radius: 15px;
+
+        /* font-family: sans-serif; */
+
+        box-shadow: none;
+        border: none;
+        /* color: aqua; */
+        /* background-color: azure; */
+
+        
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    main div button:hover{
+        transition: 0.2s  all;
+        font-size: 29px;
+        color: rgb(8, 8, 8);
+        background-color: white;
+    }
+
+    .hidden{
+        display: none;
+    }
+
+</style>
+
+
+<body>
+    <!-- <header></header> -->
+    <h2 id="title">ClickMe</h2>
+    <main id="page1">
+        <div>
+            <button class="button1">Play</button>
+        </div>
+        <div>
+            <button class="button2">About</button>
+        </div>
+        <div>
+            <button class="button3">idk</button>
+        </div>
+    </main>
+
+    <main id="page2" class="hidden">
+        <div>
+            <button class="button1">Next Level</button>
+        </div>
+        <div>
+            <button class="button2">About</button>
+        </div>
+        <div>
+            <button class="button3">idk</button>
+        </div>
+    </main>
+
+    <main id="page3" class="hidden">
+        <div>
+            <button class="button1">Play</button>
+        </div>
+        <div>
+            <button class="button2">About</button>
+        </div>
+        <div>
+            <button class="button3">idk</button>
+        </div>
+
+        <div>
+            <button class="button4">Restart?</button>
+        </div>
+    </main>
+
+    <!-- <footer></footer> -->
+</body>
+
+<script>
+
+    // const click = new Audio("click.ogg");
+    const correct = new Audio("correct.ogg");
+    const wrong = new Audio("wrong.ogg");
+    const click = new Audio("click2.mp3");
+
+
+    var level = 0
+    // var tasks = 0
+    var task1 = 0
+    var task2 = 0
+    
+    var _sum = 0
+    var sum = 0
+
+    var rand = Math.floor(Math.random()*5)
+    var numbers = [2, 3, 5, 7, 11]
+    
+    // console.log(rand)
+    // console.log(level)
+    // console.log(numbers[rand])
+    
+    function restart(){
+        level = 0
+        sum = 0
+        rand = Math.floor(Math.random()*5)
+        number1 = numbers[rand]
+        rand = Math.floor(Math.random()*5)
+        number2 = numbers[rand]
+        rand = Math.floor(Math.random()*5)
+        number3 = numbers[rand]
+        _sum = number1*2 + number2 + number3
+
+    }
+
+    function checkWin(){
+        console.log(sum)
+        console.log(_sum)
+
+        if(_sum === sum){
+            t("You Completed The Game")
+            next(page3, page4)
+        }
+
+    }
+
+    let number1 = numbers[rand]
+    var rand = Math.floor(Math.random()*5)
+    let number2 = numbers[rand]
+    var rand = Math.floor(Math.random()*5)
+    let number3 = numbers[rand]
+
+    _sum = number1*2 + number2 + number3
+    
+    console.log(number1)
+    console.log(number2)
+    console.log(number3)
+
+    let timer5
+
+
+    const button1 = document.querySelectorAll(".button1")
+    const button2 = document.querySelectorAll(".button2")
+    const button3 = document.querySelectorAll(".button3")
+    const button4 = document.querySelectorAll(".button4")
+
+    // const play_button = document.getElementById("play")
+    // const about_button = document.getElementById("about")
+    // const idk_button = document.getElementById("idk") 
+    
+    
+    
+    
+    
+    const title = document.getElementById("title")
+
+    const page1 = document.getElementById("page1")
+    const page2 = document.getElementById("page2")
+    // const page3 = document.getElementById("page3")
+    // const page4 = document.getElementById("page4")
+    // const page5 = document.getElementById("page5")
+    // const page6 = document.getElementById("page6")
+    // const page7 = document.getElementById("page7")
+    // const page8 = document.getElementById("page8")
+    // const page9 = document.getElementById("page9")
+
+
+    function next(x,y){
+        correct.play()
+        x.style.display = "none"
+        y.style.display = "flex"
+        level+=1
+        task1 = 0
+        task2 = 0
+
+    }
+
+    function t(x){
+        console.log(level)
+
+        title.textContent = x
+    }
+
+    button1.forEach(btn => {
+        btn.addEventListener("click", () => {
+            console.log(level)
+            click.play()
+
+            if (level === 0) {
+                t("ClickMe")
+                next(page1, page1)
+            } 
+            else if (level === 1) {
+                next(page1, page1)
+                t("Don't worry not an error!")
+            } 
+
+            else if (level === 2) {
+                t("Level 3")
+                next(page1, page2)
+            }
+
+            else if (level === 3){
+                if(task1){
+                    task1 = 0
+                    next(page2, page1)
+                    t("Level 4")
+                }
+                else{
+                    wrong.play()
+                    t("Not working")
+                }
+            }
+            else if(level === 4){
+                if(task2){
+                    task1 = 0
+                    task2 = 0
+
+                    next(page1, page1)
+                    tasks = 0
+                    t("Level 5")
+                    
+                    timer5 = setTimeout(() => {
+                        next(page1, page1)
+                        restart()
+                        console.log("Level 1")
+                        wrong.play()
+                        t("You are too slow.")
+                    }, 1000)
+                }
+                else{
+                    wrong.play()
+
+                    t("Complete side tasks!")
+                }
+            }
+
+            else if(level === 5){
+                next(page1, page1)
+                t("Level 6")
+                clearTimeout(timer5)
+            }
+
+            else if(level === 6){
+                if(task1){
+                    next(page1, page1)
+                    t("Level " + _sum.toString())
+                }
+            }
+            
+            else if(level === 7){
+                if(task1){
+                
+                    next(page1, page3)
+                    t("CODE")
+                }
+                else{
+                    t(number1)
+                    task1 = 1
+                }
+            }
+            
+            else if(level === 8){
+                sum += number1;
+                checkWin()
+            }
+        
+        })
+    })
+    
+    button2.forEach(btn =>{
+        btn.addEventListener("click", () => {
+            click.play()
+
+            if(level === 3){
+                t("I'm Ammar")
+                task1 =1
+
+            }
+            // else if (level===4){
+            //     t("Remember everything!")
+            //     task1 = 1
+            // }
+
+            else if(level === 6){
+                t(number2)
+                task1 = 1
+
+            }
+
+            else if(level === 8){
+                sum += number2;
+                checkWin()
+            }
+        })
+    })
+
+    button4.forEach(btn =>{
+        btn.addEventListener("click", () => {
+            click.play()
+
+            next(page3, page1)
+            t("ClickMe")
+            restart()
+        })
+    })
+
+
+
+    button3.forEach(btn =>{
+        btn.addEventListener("click", () => {
+            click.play()
+
+            // if(level === 3){
+            //     btn.style.display = "none"
+            //     tasks = 1
+            // }
+            if(level === 4){
+                t(number3)
+                task2 = 1
+
+            }
+
+            else if(level === 8){
+                sum += number3;
+                checkWin()
+            }
+        })
+    })
+
+
+
+</script>
+
+</html>
